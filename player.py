@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
-        if self.isJump == False:
+        if not self.isJump:
 
             if keys[pygame.K_w]:
                 self.isJump = True
@@ -62,8 +62,6 @@ class Player(pygame.sprite.Sprite):
                         self.rect.top = sprite.rect.bottom
                     if self.direction.y > 0:
                         self.rect.bottom = sprite.rect.top
-
-
 
     def update(self):
         self.input()
