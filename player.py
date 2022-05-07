@@ -12,7 +12,9 @@ class Player(pygame.sprite.Sprite):
         self.obstacleSprites = obstacleSprites
     def input(self):
         keys = pygame.key.get_pressed()
-
+        isJump = False
+        v = 1
+        m = 1
 
         if keys[pygame.K_d]:
             self.direction.x = 1
@@ -21,20 +23,47 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
+        if isJump == False:
+            if keys[pygame.K_w]:
+                isJump = True
+
+        if isJump:
+            F = (1 / 2) * m * (v ** 2)
+            self.direction.y -= F
+            v = v - 1
+            if v < 0:
+                m = -1
+            if v == -2:
+                isJump = False
+                v = 5
+                m = 1
+
     def move(self, speed):
         self.rect.center += self.direction * speed
 
         self.rect.x += self.direction.x * speed
         self.collisions('horizontal')
 
+        self.rect.y += self.direction.y * speed
+        self.collisions('vertical')
+
     def collisions(self, direction):
         if direction == 'horizontal':
-            for sprite  in self.obstacleSprites:
+            for sprite in self.obstacleSprites:
                 if sprite.rect.colliderect(self.rect):
                     if self.direction.x > 0:
                         self.rect.right = sprite.rect.left
                     if self.direction.x < 0:
                         self.rect.left = sprite.rect.right
+
+        if direction == 'vertical':
+            for sprite in self.obstacleSprites:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.y < 0:
+                        self.rect.top = sprite.rect.bottom
+                    if self.direction.y > 0:
+                        self.rect.bottom = sprite.rect.top
+
 
 
     def update(self):
