@@ -18,7 +18,7 @@ class Game:
                     sys.exit()
 
             # update the gamestate
-            self.screen.fill('white')
+            self.screen.fill('gray')
             pygame.display.update()
             self.clock.tick(60)
 
