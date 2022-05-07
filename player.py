@@ -32,7 +32,7 @@ class Player(pygame.sprite.Sprite):
             self.direction.y -= self.v
             self.v -= .5
 
-            if self.v == -4:
+            if self.v == -4.5:
                 self.isJump = False
                 self.v = 1.5
                 self.direction.y = 0
