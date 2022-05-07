@@ -1,5 +1,6 @@
 import sys
 import pygame
+from world import Level
 
 
 class Game:
@@ -8,6 +9,8 @@ class Game:
         self.screen = pygame.display.set_mode((1280, 720))
         pygame.display.set_caption("FuturifyGameJam")
         self.clock = pygame.time.Clock()
+
+        self.world = Level()
 
     def run(self):
         while True:
@@ -19,6 +22,7 @@ class Game:
 
             # update the gamestate
             self.screen.fill('gray')
+            self.world.run()
             pygame.display.update()
             self.clock.tick(60)
 
