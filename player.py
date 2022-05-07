@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
 
         self.obstacleSprites = obstacleSprites
 
-        self.v = 1.5
+        self.v = 2
         self.isJump = False
     def input(self):
         keys = pygame.key.get_pressed()
@@ -30,11 +30,11 @@ class Player(pygame.sprite.Sprite):
 
         if self.isJump:
             self.direction.y -= self.v
-            self.v -= .5
+            self.v -= 1
 
-            if self.v == -4.5:
+            if self.v == -6:
                 self.isJump = False
-                self.v = 1.5
+                self.v = 2
                 self.direction.y = 0
 
     def move(self, speed):
@@ -43,7 +43,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.direction.x * speed
         self.collisions('horizontal')
 
-        self.rect.y += self.direction.y * speed
+        self.rect.y += self.direction.y * (speed * 1.6)
         self.collisions('vertical')
 
     def collisions(self, direction):
