@@ -1,5 +1,4 @@
-import sys
-import pygame
+import sys, pygame
 from world import Level
 
 
@@ -14,13 +13,11 @@ class Game:
 
     def run(self):
         while True:
-            # process the events
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                     pygame.quit()
                     sys.exit()
 
-            # update the gamestate
             self.screen.fill('gray')
             self.world.run()
             pygame.display.update()

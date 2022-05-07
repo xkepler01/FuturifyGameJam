@@ -1,13 +1,13 @@
 import pygame
+from debug import debug
 from map import *
 from tile import Tile
 from player import Player
-from debug import debug
+
 
 class Level:
     def __init__(self):
 
-        #display surface
         self.displaySurface = pygame.display.get_surface()
 
         self.visibleSprites = pygame.sprite.Group()
@@ -26,7 +26,7 @@ class Level:
                     self.player = Player((x, y), [self.visibleSprites], self.obstacleSprites)
 
     def run(self):
-        #update what you see
         self.visibleSprites.draw(self.displaySurface)
         self.visibleSprites.update()
         debug(self.player.direction)
+        #debug(self.player.rect.y)
