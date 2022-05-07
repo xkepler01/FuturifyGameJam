@@ -2,7 +2,7 @@ import sys
 import pygame
 from world import Level
 
-#x
+#xy
 class Game:
     def __init__(self):
         pygame.init()
