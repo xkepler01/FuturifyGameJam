@@ -13,11 +13,13 @@ class Level:
 
         self.visibleSprites = pygame.sprite.Group()
         self.obstacleSprites = pygame.sprite.Group()
+        self.finishSprites = pygame.sprite.Group()
         self.playerSprites = pygame.sprite.Group()
         self.mapSprites = pygame.sprite.Group()
 
         self.visibleMap = MAP
         self.createMap()
+        self.createFinish()
         self.createPlayer()
 
         self.rotated = 0
@@ -29,8 +31,15 @@ class Level:
                 y = rowIndex * TILESIZE
                 if column == "x":
                     Tile((x, y), [self.mapSprites, self.obstacleSprites])
+
+
+    def createFinish(self):
+        for rowIndex, row in enumerate(self.visibleMap):
+            for columnIndex, column in enumerate(row):
+                x = columnIndex * TILESIZE
+                y = rowIndex * TILESIZE
                 if column == "o":
-                    Finish((x, y), [self.mapSprites])
+                    Finish((x, y), [self.finishSprites])
 
     def createPlayer(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -60,6 +69,8 @@ class Level:
         self.mapSprites.update()
         self.playerSprites.draw(self.displaySurface)
         self.playerSprites.update()
+        self.finishSprites.draw(self.displaySurface)
+        self.finishSprites.update()
         debug(self.player.direction)
         # debug(self.player.rect.y)
         self.rotateMap()
@@ -67,4 +78,5 @@ class Level:
         self.mapSprites.empty()
         self.obstacleSprites.empty()
         self.createMap()
+
 
