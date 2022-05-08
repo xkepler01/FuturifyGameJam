@@ -4,7 +4,11 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites):
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/player/front.png").convert_alpha()
+        self.front = pygame.image.load("graphics/player/front.png").convert_alpha()
+        self.back = pygame.image.load("graphics/player/back.png").convert_alpha()
+        self.right = pygame.image.load("graphics/player/right.png").convert_alpha()
+        self.left = pygame.image.load("graphics/player/left.png").convert_alpha()
+        self.image = self.front
         self.rect = self.image.get_rect(topleft=pos)
 
         self.direction = pygame.math.Vector2()
@@ -15,31 +19,25 @@ class Player(pygame.sprite.Sprite):
 
         self.moving = 0
 
-    def texture(self):
-        if self.direction.y > 0:
-            self.image = pygame.image.load("graphics/player/front.png")
-        elif self.direction.y < 0:
-            self.image = pygame.image.load("graphics/player/back.png")
-        elif self.direction.x > 0:
-            self.image = pygame.image.load("graphics/player/right.png")
-        elif self.direction.x < 0:
-            self.image = pygame.image.load("graphics/player/left.png")
-
     def input(self):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_d] and self.moving == 0:
             self.direction.x = 1
             self.moving = 1
+            self.image = self.right
         elif keys[pygame.K_a] and self.moving == 0:
             self.direction.x = -1
             self.moving = 1
+            self.image = self.left
         elif keys[pygame.K_w] and self.moving == 0:
             self.direction.y = -1
             self.moving = 1
+            self.image = self.back
         elif keys[pygame.K_s] and self.moving == 0:
             self.direction.y = 1
             self.moving = 1
+            self.image = self.front
         else:
             self.direction.x = 0
             self.direction.y = 0
@@ -85,5 +83,4 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
-        self.texture()
 
