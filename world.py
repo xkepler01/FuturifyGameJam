@@ -12,6 +12,8 @@ class Level:
 
         self.visibleSprites = pygame.sprite.Group()
         self.obstacleSprites = pygame.sprite.Group()
+        self.playerSprites = pygame.sprite.Group()
+        self.mapSprites = pygame.sprite.Group()
 
         self.visibleMap = MAP
         self.createMap()
@@ -25,9 +27,9 @@ class Level:
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
                 if column == "x":
-                    Tile((x, y), [self.visibleSprites, self.obstacleSprites])
+                    Tile((x, y), [self.mapSprites, self.obstacleSprites])
                 if column == "p":
-                    self.player = Player((x, y), [self.visibleSprites], self.obstacleSprites)
+                    self.player = Player((x, y), [self.playerSprites], self.obstacleSprites)
 
     def rotateMap(self):
         for event in pygame.event.get():
@@ -40,12 +42,14 @@ class Level:
 
 
     def run(self):
-        self.visibleSprites.draw(self.displaySurface)
-        self.visibleSprites.update()
+        self.mapSprites.draw(self.displaySurface)
+        self.mapSprites.update()
+        self.playerSprites.draw(self.displaySurface)
+        self.playerSprites.update()
         debug(self.player.direction)
         #debug(self.player.rect.y)
         self.rotateMap()
-        self.visibleSprites.empty()
+        self.mapSprites.empty()
         self.createMap()
 
 
