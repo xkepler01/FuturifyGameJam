@@ -65,12 +65,6 @@ class Player(pygame.sprite.Sprite):
                         self.rect.bottom = sprite.rect.top
                     if self.direction.y < 0:
                         self.rect.top = sprite.rect.bottom
-                #    self.onGround = 1
-                #elif self.counter == 50:
-                #    self.onGround = 0
-                #    self.counter = 0
-                #    self.jump = 10
-
 
     def update(self):
         self.input()

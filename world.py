@@ -19,7 +19,7 @@ class Level:
         self.createMap()
         self.createPlayer()
 
-        self.ePressed = 0
+        self.rotating = 0
 
     def createMap(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -40,14 +40,16 @@ class Level:
                     self.player = Player((x, y), [self.playerSprites], self.obstacleSprites)
 
     def rotateMap(self):
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                print('x')
-                if event.key == pygame.K_e:
-                    self.visibleMap = [[self.visibleMap[j][i] for i in range(len(self.visibleMap))] for j in range(len(self.visibleMap[0]) - 1, -1, -1)]
-                    print(self.visibleMap)
-                if event.key == pygame.K_q:
-                    self.visibleMap = [[self.visibleMap[j][i] for j in range(len(self.visibleMap[0]) - 1, -1, -1)] for i in range(len(self.visibleMap))]
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_e] and self.rotating == 0:
+            self.visibleMap = list(zip(*self.visibleMap[::-1]))
+            self.rotating = 1
+        elif keys[pygame.K_q] and self.rotating == 0:
+            self.visibleMap = list(zip(*self.visibleMap))[::-1]
+            self.rotating = 1
+        else:
+            self.rotating = 0
 
     def run(self):
         self.mapSprites.draw(self.displaySurface)
