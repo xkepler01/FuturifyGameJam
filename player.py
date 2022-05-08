@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=pos)
 
         self.direction = pygame.math.Vector2()
-        self.speed = 6
+        self.speed = 8
 
         self.obstacleSprites = obstacleSprites
 

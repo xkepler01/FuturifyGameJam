@@ -1,7 +1,7 @@
 import pygame, sys
 from debug import debug
 from map import *
-from tile import Tile
+from tile import *
 from player import Player
 
 
@@ -28,6 +28,8 @@ class Level:
                 y = rowIndex * TILESIZE
                 if column == "x":
                     Tile((x, y), [self.mapSprites, self.obstacleSprites])
+                if column == "o":
+                    Finish((x, y), [self.mapSprites])
 
     def createPlayer(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -40,10 +42,12 @@ class Level:
     def rotateMap(self):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-
+                print('x')
                 if event.key == pygame.K_e:
-                    self.visibleMap = [[self.visibleMap[j][i] for j in range(len(self.visibleMap))] for i in
-                                       range(len(self.visibleMap[0]))]
+                    self.visibleMap = [[self.visibleMap[j][i] for i in range(len(self.visibleMap))] for j in range(len(self.visibleMap[0]) - 1, -1, -1)]
+                    print(self.visibleMap)
+                if event.key == pygame.K_q:
+                    self.visibleMap = [[self.visibleMap[j][i] for j in range(len(self.visibleMap[0]) - 1, -1, -1)] for i in range(len(self.visibleMap))]
 
     def run(self):
         self.mapSprites.draw(self.displaySurface)
