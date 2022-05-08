@@ -5,7 +5,7 @@ from world import Level
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((1280, 720))
+        self.screen = pygame.display.set_mode((640, 640))
         pygame.display.set_caption("FuturifyGameJam")
         self.clock = pygame.time.Clock()
 

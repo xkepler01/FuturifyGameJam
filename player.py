@@ -1,5 +1,4 @@
 import pygame
-from time import sleep
 
 
 class Player(pygame.sprite.Sprite):
@@ -19,7 +18,6 @@ class Player(pygame.sprite.Sprite):
 
     def input(self):
         keys = pygame.key.get_pressed()
-
 
         if self.onGround == 1:
             self.direction.y = 0
