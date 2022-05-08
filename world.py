@@ -54,4 +54,5 @@ class Level:
         # debug(self.player.rect.y)
         self.rotateMap()
         self.mapSprites.empty()
+        self.obstacleSprites.empty()
         self.createMap()

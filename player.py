@@ -4,34 +4,41 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites):
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/player.png").convert_alpha()
+        self.image = pygame.image.load("graphics/player/right.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
 
         self.direction = pygame.math.Vector2()
-        self.speed = 4
+        self.speed = 6
 
         self.obstacleSprites = obstacleSprites
 
+        self.moving = 0
 
+    def texture(self):
+        if self.direction.x < 0:
+            self.image = pygame.image.load("graphics/player/left.png")
+        elif self.direction.x > 0:
+            self.image = pygame.image.load("graphics/player/right.png")
 
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_w]:
-            self.direction.y = -1
-        elif keys[pygame.K_s]:
-            self.direction.y = 1
-        else:
-            self.direction.y = 0
-
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] and self.moving == 0:
             self.direction.x = 1
-        elif keys[pygame.K_a]:
+            self.moving = 1
+        elif keys[pygame.K_a] and self.moving == 0:
             self.direction.x = -1
+            self.moving = 1
+        elif keys[pygame.K_w] and self.moving == 0:
+            self.direction.y = -1
+            self.moving = 1
+        elif keys[pygame.K_s] and self.moving == 0:
+            self.direction.y = 1
+            self.moving = 1
         else:
             self.direction.x = 0
-
-
+            self.direction.y = 0
+            self.moving = 0
 
     def move(self, speed):
         self.rect.center += self.direction * speed
@@ -68,4 +75,5 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
+        self.texture()
 
