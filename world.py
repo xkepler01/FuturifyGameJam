@@ -17,6 +17,7 @@ class Level:
 
         self.visibleMap = MAP
         self.createMap()
+        self.createPlayer()
 
         self.ePressed = 0
 
@@ -28,6 +29,13 @@ class Level:
                 y = rowIndex * TILESIZE
                 if column == "x":
                     Tile((x, y), [self.mapSprites, self.obstacleSprites])
+
+    def createPlayer(self):
+        for rowIndex, row in enumerate(self.visibleMap):
+            print(row)
+            for columnIndex, column in enumerate(row):
+                x = columnIndex * TILESIZE
+                y = rowIndex * TILESIZE
                 if column == "p":
                     self.player = Player((x, y), [self.playerSprites], self.obstacleSprites)
 
@@ -46,7 +54,7 @@ class Level:
         self.mapSprites.update()
         self.playerSprites.draw(self.displaySurface)
         self.playerSprites.update()
-        debug(self.player.direction)
+        #debug(self.player.direction)
         #debug(self.player.rect.y)
         self.rotateMap()
         self.mapSprites.empty()
