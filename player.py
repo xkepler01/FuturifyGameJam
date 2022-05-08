@@ -4,7 +4,7 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites):
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/player/right.png").convert_alpha()
+        self.image = pygame.image.load("graphics/player/front.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
 
         self.direction = pygame.math.Vector2()
@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
 
     def texture(self):
         if self.direction.y > 0:
-            self.image = pygame.image.load("graphics/player/right.png")
+            self.image = pygame.image.load("graphics/player/front.png")
         elif self.direction.y < 0:
             self.image = pygame.image.load("graphics/player/back.png")
         elif self.direction.x > 0:
