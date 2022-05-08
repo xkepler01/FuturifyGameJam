@@ -23,7 +23,6 @@ class Level:
 
     def createMap(self):
         for rowIndex, row in enumerate(self.visibleMap):
-            print(row)
             for columnIndex, column in enumerate(row):
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
@@ -32,7 +31,6 @@ class Level:
 
     def createPlayer(self):
         for rowIndex, row in enumerate(self.visibleMap):
-            print(row)
             for columnIndex, column in enumerate(row):
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
@@ -43,21 +41,17 @@ class Level:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
 
-                 if event.key == pygame.K_e:
-                    self.visibleMap = [[self.visibleMap[j][i] for j in range(len(self.visibleMap))] for i in range(len(self.visibleMap[0]))]
-                    print(self.visibleMap)
-
-
+                if event.key == pygame.K_e:
+                    self.visibleMap = [[self.visibleMap[j][i] for j in range(len(self.visibleMap))] for i in
+                                       range(len(self.visibleMap[0]))]
 
     def run(self):
         self.mapSprites.draw(self.displaySurface)
         self.mapSprites.update()
         self.playerSprites.draw(self.displaySurface)
         self.playerSprites.update()
-        #debug(self.player.direction)
-        #debug(self.player.rect.y)
+        debug(self.player.direction)
+        # debug(self.player.rect.y)
         self.rotateMap()
         self.mapSprites.empty()
         self.createMap()
-
-

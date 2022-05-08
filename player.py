@@ -12,30 +12,26 @@ class Player(pygame.sprite.Sprite):
 
         self.obstacleSprites = obstacleSprites
 
-        self.onGround = 2
-        self.counter = 0
-        self.jump = 10
+
 
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if self.onGround == 1:
-            self.direction.y = 0
-        else:
+        if keys[pygame.K_w]:
+            self.direction.y = -1
+        elif keys[pygame.K_s]:
             self.direction.y = 1
-        if self.jump > 0:
-            if keys[pygame.K_w]:
-                self.direction.y = -1
-                self.jump -= 1
+        else:
+            self.direction.y = 0
 
         if keys[pygame.K_d]:
             self.direction.x = 1
-            #self.direction.y = 0
         elif keys[pygame.K_a]:
             self.direction.x = -1
-            #self.direction.y = 0
         else:
             self.direction.x = 0
+
+
 
     def move(self, speed):
         self.rect.center += self.direction * speed
@@ -46,7 +42,7 @@ class Player(pygame.sprite.Sprite):
         self.collisions('vertical')
 
     def collisions(self, direction):
-        self.counter += 1
+        #self.counter += 1
         if direction == 'horizontal':
             for sprite in self.obstacleSprites:
                 if sprite.rect.colliderect(self.rect):
@@ -62,11 +58,11 @@ class Player(pygame.sprite.Sprite):
                         self.rect.bottom = sprite.rect.top
                     if self.direction.y < 0:
                         self.rect.top = sprite.rect.bottom
-                    self.onGround = 1
-                elif self.counter == 50:
-                    self.onGround = 0
-                    self.counter = 0
-                    self.jump = 10
+                #    self.onGround = 1
+                #elif self.counter == 50:
+                #    self.onGround = 0
+                #    self.counter = 0
+                #    self.jump = 10
 
 
     def update(self):
