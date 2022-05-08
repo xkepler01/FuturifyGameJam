@@ -2,7 +2,7 @@ import pygame
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacleSprites):
+    def __init__(self, pos, groups, obstacleSprites, entitySprites):
         super().__init__(groups)
         self.image = pygame.image.load("graphics/player/front.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
@@ -11,6 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 5
 
         self.obstacleSprites = obstacleSprites
+        self.entitySprites = entitySprites
 
         self.moving = 0
 
@@ -53,9 +54,14 @@ class Player(pygame.sprite.Sprite):
         self.collisions('vertical')
 
     def collisions(self, direction):
-        #self.counter += 1
         if direction == 'horizontal':
             for sprite in self.obstacleSprites:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.x > 0:
+                        self.rect.right = sprite.rect.left
+                    if self.direction.x < 0:
+                        self.rect.left = sprite.rect.right
+            for sprite in self.entitySprites:
                 if sprite.rect.colliderect(self.rect):
                     if self.direction.x > 0:
                         self.rect.right = sprite.rect.left
@@ -64,6 +70,12 @@ class Player(pygame.sprite.Sprite):
 
         if direction == 'vertical':
             for sprite in self.obstacleSprites:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.y > 0:
+                        self.rect.bottom = sprite.rect.top
+                    if self.direction.y < 0:
+                        self.rect.top = sprite.rect.bottom
+            for sprite in self.entitySprites:
                 if sprite.rect.colliderect(self.rect):
                     if self.direction.y > 0:
                         self.rect.bottom = sprite.rect.top

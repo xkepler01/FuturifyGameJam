@@ -1,0 +1,41 @@
+import pygame
+
+
+class Box(pygame.sprite.Sprite):
+    def __init__(self, pos, groups, obstacleSprites, playerSprites):
+        super().__init__(groups)
+        self.image = pygame.image.load("graphics/tile.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=pos)
+
+        self.direction = pygame.math.Vector2()
+        self.speed = 5
+        self.direction.y = 1
+
+        self.obstacleSprites = obstacleSprites
+        self.playerSprites = playerSprites
+
+    def move(self, speed):
+        #self.rect.center += self.direction * speed
+
+        self.rect.y += self.direction.y * speed
+        self.collisions('vertical')
+
+    def collisions(self, direction):
+        if direction == 'vertical':
+            for sprite in self.obstacleSprites:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.y > 0:
+                        self.rect.bottom = sprite.rect.top
+                    if self.direction.y < 0:
+                        self.rect.top = sprite.rect.bottom
+            for sprite in self.playerSprites:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.y > 0:
+                        self.rect.bottom = sprite.rect.top
+                    if self.direction.y < 0:
+                        self.rect.top = sprite.rect.bottom
+
+
+
+    def update(self):
+        self.move(self.speed)
