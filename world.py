@@ -3,6 +3,7 @@ from debug import debug
 from map import *
 from tile import *
 from player import Player
+from time import sleep
 
 
 class Level:
@@ -19,7 +20,7 @@ class Level:
         self.createMap()
         self.createPlayer()
 
-        self.rotating = 0
+        self.rotated = 0
 
     def createMap(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -42,14 +43,17 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_e] and self.rotating == 0:
+        if keys[pygame.K_e]:
             self.visibleMap = list(zip(*self.visibleMap[::-1]))
-            self.rotating = 1
-        elif keys[pygame.K_q] and self.rotating == 0:
+            self.rotated = 1
+        elif keys[pygame.K_q]:
             self.visibleMap = list(zip(*self.visibleMap))[::-1]
-            self.rotating = 1
-        else:
-            self.rotating = 0
+            self.rotated = 1
+
+    def rotatedDelay(self):
+        if self.rotated == 1:
+            sleep(.2)
+            self.rotated = 0
 
     def run(self):
         self.mapSprites.draw(self.displaySurface)
@@ -59,6 +63,8 @@ class Level:
         debug(self.player.direction)
         # debug(self.player.rect.y)
         self.rotateMap()
+        self.rotatedDelay()
         self.mapSprites.empty()
         self.obstacleSprites.empty()
         self.createMap()
+
