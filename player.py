@@ -8,17 +8,21 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=pos)
 
         self.direction = pygame.math.Vector2()
-        self.speed = 8
+        self.speed = 5
 
         self.obstacleSprites = obstacleSprites
 
         self.moving = 0
 
     def texture(self):
-        if self.direction.x < 0:
-            self.image = pygame.image.load("graphics/player/left.png")
+        if self.direction.y > 0:
+            self.image = pygame.image.load("graphics/player/right.png")
+        elif self.direction.y < 0:
+            self.image = pygame.image.load("graphics/player/back.png")
         elif self.direction.x > 0:
             self.image = pygame.image.load("graphics/player/right.png")
+        elif self.direction.x < 0:
+            self.image = pygame.image.load("graphics/player/left.png")
 
     def input(self):
         keys = pygame.key.get_pressed()
