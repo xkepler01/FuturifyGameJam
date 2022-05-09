@@ -1,5 +1,5 @@
 import pygame
-
+from map import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites):
@@ -17,9 +17,12 @@ class Player(pygame.sprite.Sprite):
         self.obstacleSprites = obstacleSprites
         self.entitySprites = entitySprites
 
+        self.visibleMap = MAP
+
         self.moving = 0
 
     def input(self):
+        """
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_d] and self.moving == 0:
@@ -42,6 +45,12 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
             self.direction.y = 0
             self.moving = 0
+        """
+
+
+
+
+
 
     def move(self, speed):
         self.rect.center += self.direction * speed
