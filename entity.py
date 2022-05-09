@@ -14,7 +14,18 @@ class Box(pygame.sprite.Sprite):
         self.obstacleSprites = obstacleSprites
         self.playerSprites = playerSprites
 
-    def move(self, speed):
+    def input(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_q]:
+            self.rect.x, self.rect.y = self.rect.y - (self.rect.y % 32), (640 - 32 - self.rect.x) - (640 - 32 - self.rect.x) % 32
+            print(self.rect.x, self.rect.y)
+        if keys[pygame.K_e]:
+            self.rect.x, self.rect.y = 640 - 32 - self.rect.y - (640 - 32 - self.rect.y) % 32, self.rect.x - (self.rect.x % 32)
+            print(self.rect.x, self.rect.y)
+
+
+    def move(self, speed):        
         #self.rect.center += self.direction * speed
 
         self.rect.y += self.direction.y * speed
@@ -38,4 +49,5 @@ class Box(pygame.sprite.Sprite):
 
 
     def update(self):
+        self.input()
         self.move(self.speed)
