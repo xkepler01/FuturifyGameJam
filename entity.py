@@ -4,7 +4,7 @@ import pygame
 class Box(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, playerSprites):
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/tile.png").convert_alpha()
+        self.image = pygame.image.load("graphics/box.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
 
         self.direction = pygame.math.Vector2()
@@ -24,10 +24,7 @@ class Box(pygame.sprite.Sprite):
             self.rect.x, self.rect.y = 640 - 32 - self.rect.y - (640 - 32 - self.rect.y) % 32, self.rect.x - (self.rect.x % 32)
             print(self.rect.x, self.rect.y)
 
-
-    def move(self, speed):        
-        #self.rect.center += self.direction * speed
-
+    def move(self, speed):
         self.rect.y += self.direction.y * speed
         self.collisions('vertical')
 
@@ -45,8 +42,6 @@ class Box(pygame.sprite.Sprite):
                         self.rect.bottom = sprite.rect.top
                     if self.direction.y < 0:
                         self.rect.top = sprite.rect.bottom
-
-
 
     def update(self):
         self.input()

@@ -40,7 +40,7 @@ class Level:
             for columnIndex, column in enumerate(row):
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
-                if column == "o":
+                if column == "f":
                     Finish((x, y), [self.finishSprites])
 
     def createPlayer(self):
@@ -56,7 +56,7 @@ class Level:
             for columnIndex, column in enumerate(row):
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
-                if column == "a":
+                if column == "b":
                     Box((x, y), [self.entitySprites], self.obstacleSprites, self.playerSprites)
 
     def rotateMap(self):
@@ -71,24 +71,34 @@ class Level:
 
     def rotatedDelay(self):
         if self.rotated == 1:
-            sleep(.2)
+            sleep(.1)
             self.rotated = 0
 
     def run(self):
-        self.mapSprites.draw(self.displaySurface)
-        self.mapSprites.update()
-        self.entitySprites.draw(self.displaySurface)
-        self.entitySprites.update()
-        self.playerSprites.draw(self.displaySurface)
-        self.playerSprites.update()
-        self.finishSprites.draw(self.displaySurface)
-        self.finishSprites.update()
         debug(self.player.direction)
         # debug(self.player.rect.y)
+
+        self.mapSprites.draw(self.displaySurface)
+        self.mapSprites.update()
+
+        self.entitySprites.draw(self.displaySurface)
+        self.entitySprites.update()
+
+        self.playerSprites.draw(self.displaySurface)
+        self.playerSprites.update()
+
+        self.finishSprites.draw(self.displaySurface)
+        self.finishSprites.update()
+
         self.rotateMap()
+
         self.rotatedDelay()
+
         self.mapSprites.empty()
         self.obstacleSprites.empty()
         self.createMap()
+
+        self.finishSprites.empty()
+        self.createFinish()
 
 
