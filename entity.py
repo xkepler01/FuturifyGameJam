@@ -19,10 +19,8 @@ class Box(pygame.sprite.Sprite):
 
         if keys[pygame.K_LEFT]:
             self.rect.x, self.rect.y = self.rect.y - (self.rect.y % 32), (640 - 32 - self.rect.x) - (640 - 32 - self.rect.x) % 32
-            print(self.rect.x, self.rect.y)
         if keys[pygame.K_RIGHT]:
             self.rect.x, self.rect.y = 640 - 32 - self.rect.y - (640 - 32 - self.rect.y) % 32, self.rect.x - (self.rect.x % 32)
-            print(self.rect.x, self.rect.y)
 
     def move(self, speed):
         self.rect.y += self.direction.y * speed
