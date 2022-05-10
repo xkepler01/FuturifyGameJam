@@ -20,6 +20,7 @@ class Level:
         self.entitySprites = pygame.sprite.Group()
 
         self.visibleMap = MAP
+
         self.createMap()
         self.createFinish()
         self.createPlayer()
@@ -62,11 +63,13 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
+
         if keys[pygame.K_RIGHT]:
             self.visibleMap = list(zip(*self.visibleMap[::-1]))
             self.rotated = 1
         elif keys[pygame.K_LEFT]:
             self.visibleMap = list(zip(*self.visibleMap))[::-1]
+
             self.rotated = 1
 
     def rotatedDelay(self):
@@ -86,6 +89,7 @@ class Level:
 
         self.playerSprites.draw(self.displaySurface)
         self.playerSprites.update()
+
 
         self.finishSprites.draw(self.displaySurface)
         self.finishSprites.update()
