@@ -62,10 +62,10 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_e]:
+        if keys[pygame.K_RIGHT]:
             self.visibleMap = list(zip(*self.visibleMap[::-1]))
             self.rotated = 1
-        elif keys[pygame.K_q]:
+        elif keys[pygame.K_LEFT]:
             self.visibleMap = list(zip(*self.visibleMap))[::-1]
             self.rotated = 1
 
