@@ -1,4 +1,4 @@
-TILESIZE = 64
+TILESIZE = 32
 
 MAP = [
     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
