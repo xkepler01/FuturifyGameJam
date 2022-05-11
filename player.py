@@ -29,9 +29,9 @@ class Player(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_e]:
             self.rect.x, self.rect.y = self.rect.y, 896-64 - self.rect.x
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_q]:
             self.rect.x, self.rect.y = 896-64 - self.rect.y, self.rect.x
 
 

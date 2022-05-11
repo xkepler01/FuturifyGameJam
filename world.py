@@ -83,7 +83,7 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_q]:
             self.visibleMap = list(map(list, zip(*self.visibleMap[::-1])))
 
             self.berrySprites.empty()
@@ -96,7 +96,7 @@ class Level:
 
             self.rotated = 1
 
-        elif keys[pygame.K_LEFT]:
+        elif keys[pygame.K_e]:
             self.visibleMap = list(map(list, zip(*self.visibleMap)))[::-1]
 
             self.berrySprites.empty()
