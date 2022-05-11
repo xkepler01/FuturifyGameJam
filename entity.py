@@ -44,3 +44,13 @@ class Box(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
+
+
+class Blueberry(pygame.sprite.Sprite):
+    def __init__(self, pos, groups, playerSprites):
+        super().__init__(groups)
+        self.image = pygame.image.load("graphics/blueberry.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=pos)
+
+        self.playerSprites = playerSprites
+

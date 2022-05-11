@@ -2,7 +2,7 @@ import pygame
 from map import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacleSprites, entitySprites):
+    def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
         super().__init__(groups)
         self.front = pygame.image.load("graphics/player/front.png").convert_alpha()
         self.back = pygame.image.load("graphics/player/back.png").convert_alpha()
@@ -16,10 +16,13 @@ class Player(pygame.sprite.Sprite):
 
         self.obstacleSprites = obstacleSprites
         self.entitySprites = entitySprites
+        self.berrySprites = berrySprites
 
         self.visibleMap = MAP
 
         self.moving = 0
+
+        self.bonusPoint = 0
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -74,6 +77,7 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.x < 0:
                         self.rect.left = sprite.rect.right
 
+
         if direction == 'vertical':
             for sprite in self.obstacleSprites:
                 if sprite.rect.colliderect(self.rect):
@@ -81,12 +85,18 @@ class Player(pygame.sprite.Sprite):
                         self.rect.bottom = sprite.rect.top
                     if self.direction.y < 0:
                         self.rect.top = sprite.rect.bottom
+
             for sprite in self.entitySprites:
                 if sprite.rect.colliderect(self.rect):
                     if self.direction.y > 0:
                         self.rect.bottom = sprite.rect.top
                     if self.direction.y < 0:
                         self.rect.top = sprite.rect.bottom
+
+        for sprite in self.berrySprites:
+            if sprite.rect.colliderect(self.rect):
+                self.berrySprites.empty()
+                self.bonusPoint += 1
 
     def update(self):
         self.input()

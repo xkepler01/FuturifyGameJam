@@ -3,7 +3,8 @@ from debug import debug
 from map import *
 from tile import *
 from player import Player
-from entity import  Box
+from entity import Box
+from entity import Blueberry
 from time import sleep
 
 
@@ -18,6 +19,7 @@ class Level:
         self.playerSprites = pygame.sprite.Group()
         self.mapSprites = pygame.sprite.Group()
         self.entitySprites = pygame.sprite.Group()
+        self.berrySprites = pygame.sprite.Group()
 
         self.visibleMap = MAP
 
@@ -25,6 +27,7 @@ class Level:
         self.createFinish()
         self.createPlayer()
         self.createBox()
+        self.createBerry()
 
         self.rotated = 0
 
@@ -50,7 +53,7 @@ class Level:
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
                 if column == "p":
-                    self.player = Player((x, y), [self.playerSprites], self.obstacleSprites, self.entitySprites)
+                    self.player = Player((x, y), [self.playerSprites], self.obstacleSprites, self.entitySprites, self.berrySprites)
 
     def createBox(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -59,6 +62,14 @@ class Level:
                 y = rowIndex * TILESIZE
                 if column == "b":
                     Box((x, y), [self.entitySprites], self.obstacleSprites, self.playerSprites)
+
+    def createBerry(self):
+        for rowIndex, row in enumerate(self.visibleMap):
+            for columnIndex, column in enumerate(row):
+                x = columnIndex * TILESIZE
+                y = rowIndex * TILESIZE
+                if column == "s":
+                    Blueberry((x, y), [self.berrySprites], self.playerSprites)
 
     def rotateMap(self):
         keys = pygame.key.get_pressed()
@@ -93,6 +104,9 @@ class Level:
 
         self.finishSprites.draw(self.displaySurface)
         self.finishSprites.update()
+
+        self.berrySprites.draw(self.displaySurface)
+        self.berrySprites.update()
 
         self.rotateMap()
 
