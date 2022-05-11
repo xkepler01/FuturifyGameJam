@@ -1,6 +1,7 @@
 import pygame
 from map import *
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
         super().__init__(groups)
@@ -63,8 +64,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.direction.y * speed
         self.collisions('vertical')
 
-        self.point()
-
     def collisions(self, direction):
         if direction == 'horizontal':
             for sprite in self.obstacleSprites:
@@ -100,17 +99,6 @@ class Player(pygame.sprite.Sprite):
             if sprite.rect.colliderect(self.rect):
                 self.berrySprites.empty()
                 self.bonusPoint += 1
-
-    def point(self):
-        if self.bonusPoint == 1:
-            print(MAP)
-            for rowIndex, row in enumerate(MAP):
-                for columnIndex, column in enumerate(row):
-                    if column == "s":
-                        row[columnIndex] = " "
-                        print(MAP)
-                        self.bonusPoint = 0
-
 
     def update(self):
         self.input()
