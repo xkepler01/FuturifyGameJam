@@ -78,10 +78,15 @@ class Level:
         if keys[pygame.K_RIGHT]:
             self.visibleMap = list(zip(*self.visibleMap[::-1]))
             self.rotated = 1
+
+            self.berrySprites.empty()
+            self.createBerry()
         elif keys[pygame.K_LEFT]:
             self.visibleMap = list(zip(*self.visibleMap))[::-1]
-
             self.rotated = 1
+
+            self.berrySprites.empty()
+            self.createBerry()
 
     def rotatedDelay(self):
         if self.rotated == 1:
@@ -118,8 +123,4 @@ class Level:
 
         self.finishSprites.empty()
         self.createFinish()
-
-        self.berrySprites.empty()
-        self.createBerry()
-
 
