@@ -1,10 +1,8 @@
 import pygame, sys
-
-import map
 from debug import debug
 from map import *
 from tile import *
-from player import Player, berryMap
+from player import Player
 from entity import Box
 from entity import Blueberry
 from time import sleep
@@ -23,7 +21,7 @@ class Level:
         self.entitySprites = pygame.sprite.Group()
         self.berrySprites = pygame.sprite.Group()
 
-        self.visibleMap = berryMap
+        self.visibleMap = MAP
 
         self.createMap()
         self.createFinish()
@@ -73,14 +71,20 @@ class Level:
                 if column == "s":
                     Blueberry((x, y), [self.berrySprites])
 
+    def removeBerry(self):
+        if self.player.bonusPoint == 1:
+            print(1)
+            for rowIndex, row in enumerate(self.visibleMap):
+                for columnIndex, column in enumerate(row):
+                    if column == "s":
+                        row[columnIndex] = " "
+                        self.player.bonusPoint = 0
 
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-
         if keys[pygame.K_RIGHT]:
-
-            self.visibleMap = list(zip(*self.visibleMap[::-1]))
+            self.visibleMap = list(map(list, zip(*self.visibleMap[::-1])))
 
             self.berrySprites.empty()
             self.createBerry()
@@ -93,8 +97,7 @@ class Level:
             self.rotated = 1
 
         elif keys[pygame.K_LEFT]:
-
-            self.visibleMap = list(zip(*self.visibleMap))[::-1]
+            self.visibleMap = list(map(list, zip(*self.visibleMap)))[::-1]
 
             self.berrySprites.empty()
             self.createBerry()
@@ -108,12 +111,12 @@ class Level:
 
     def rotationDelay(self):
         if self.rotated == 1:
-            sleep(0.15)
+            sleep(0.2)
             self.rotated = 0
 
     def run(self):
-        debug(self.player.direction)
-        # debug(self.player.rect.y)
+        #debug(self.player.direction)
+        #debug(self.player.rect.y)
 
         self.mapSprites.draw(self.displaySurface)
         self.mapSprites.update()
@@ -124,12 +127,13 @@ class Level:
         self.playerSprites.draw(self.displaySurface)
         self.playerSprites.update()
 
-
         self.finishSprites.draw(self.displaySurface)
         self.finishSprites.update()
 
         self.berrySprites.draw(self.displaySurface)
         self.berrySprites.update()
+        self.removeBerry()
 
         self.rotateMap()
+        self.rotationDelay()
 

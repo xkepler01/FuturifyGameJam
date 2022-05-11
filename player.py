@@ -1,13 +1,11 @@
 import pygame
 from map import *
 
-berryMap = MAP
-
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
         super().__init__(groups)
-        self.playerSize = (99 * 0.56, 106 * 0.56)
+        self.playerSize = (60, 60)
         self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(), self.playerSize)
         self.back = pygame.transform.scale(pygame.image.load("graphics/player/back.png").convert_alpha(), self.playerSize)
         self.right = pygame.transform.scale(pygame.image.load("graphics/player/right.png").convert_alpha(), self.playerSize)
@@ -22,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.entitySprites = entitySprites
         self.berrySprites = berrySprites
 
-        self.visibleMap = berryMap
+        self.visibleMap = MAP
 
         self.moving = 0
 
@@ -101,12 +99,6 @@ class Player(pygame.sprite.Sprite):
             if sprite.rect.colliderect(self.rect):
                 self.berrySprites.empty()
                 self.bonusPoint += 1
-                for rowIndex, row in enumerate(berryMap):
-                    for columnIndex, column in enumerate(row):
-                        if column == "s":
-                            row[columnIndex] = " "
-                            print(berryMap)
-                            self.bonusPoint = 0
 
     def update(self):
         self.input()
