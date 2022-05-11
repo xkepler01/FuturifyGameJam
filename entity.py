@@ -1,10 +1,10 @@
 import pygame
-
+from map import *
 
 class Box(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, playerSprites):
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/box.png").convert_alpha()
+        self.image = pygame.transform.scale(pygame.image.load("graphics/box.png").convert_alpha(), (TILESIZE, TILESIZE))
         self.rect = self.image.get_rect(topleft=pos)
 
         self.direction = pygame.math.Vector2()
@@ -49,7 +49,7 @@ class Box(pygame.sprite.Sprite):
 class Blueberry(pygame.sprite.Sprite):
     def __init__(self, pos, groups, playerSprites):
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/blueberry.png").convert_alpha()
+        self.image = pygame.transform.scale(pygame.image.load("graphics/blueberry.png").convert_alpha(), (TILESIZE,TILESIZE))
         self.rect = self.image.get_rect(topleft=pos)
 
         self.playerSprites = playerSprites

@@ -4,10 +4,11 @@ from map import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
         super().__init__(groups)
-        self.front = pygame.image.load("graphics/player/front.png").convert_alpha()
-        self.back = pygame.image.load("graphics/player/back.png").convert_alpha()
-        self.right = pygame.image.load("graphics/player/right.png").convert_alpha()
-        self.left = pygame.image.load("graphics/player/left.png").convert_alpha()
+        self.playerSize = (60, 60)
+        self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(), self.playerSize)
+        self.back = pygame.transform.scale(pygame.image.load("graphics/player/back.png").convert_alpha(), self.playerSize)
+        self.right = pygame.transform.scale(pygame.image.load("graphics/player/right.png").convert_alpha(), self.playerSize)
+        self.left = pygame.transform.scale(pygame.image.load("graphics/player/left.png").convert_alpha(), self.playerSize)
         self.image = self.front
         self.rect = self.image.get_rect(topleft=pos)
 
@@ -28,9 +29,9 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
-            self.rect.x, self.rect.y = self.rect.y, 640-64 - self.rect.x
+            self.rect.x, self.rect.y = self.rect.y, 896-64 - self.rect.x
         if keys[pygame.K_RIGHT]:
-            self.rect.x, self.rect.y = 640 - 64 - self.rect.y, self.rect.x
+            self.rect.x, self.rect.y = 896-64 - self.rect.y, self.rect.x
 
 
         if keys[pygame.K_d] and self.moving == 0:
