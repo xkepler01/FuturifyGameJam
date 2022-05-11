@@ -1,6 +1,7 @@
 import pygame
 from map import *
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
         super().__init__(groups)
