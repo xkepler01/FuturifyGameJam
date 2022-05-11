@@ -11,6 +11,9 @@ class Game:
 
         self.world = Level()
 
+        pygame.mixer.music.load("sounds/music.mp3")
+        pygame.mixer.music.play(-1)
+
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -18,7 +21,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            self.screen.fill('gray')
+            self.screen.fill("gray")
             self.world.run()
             pygame.display.update()
             self.clock.tick(60)
