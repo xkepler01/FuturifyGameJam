@@ -1,8 +1,10 @@
 import pygame, sys
+
+import map
 from debug import debug
 from map import *
 from tile import *
-from player import Player
+from player import Player, berryMap
 from entity import Box
 from entity import Blueberry
 from time import sleep
@@ -21,7 +23,7 @@ class Level:
         self.entitySprites = pygame.sprite.Group()
         self.berrySprites = pygame.sprite.Group()
 
-        self.visibleMap = MAP
+        self.visibleMap = berryMap
 
         self.createMap()
         self.createFinish()
@@ -71,21 +73,42 @@ class Level:
                 if column == "s":
                     Blueberry((x, y), [self.berrySprites])
 
+
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
 
         if keys[pygame.K_RIGHT]:
+
             self.visibleMap = list(zip(*self.visibleMap[::-1]))
+
+            self.berrySprites.empty()
+            self.createBerry()
+            self.mapSprites.empty()
+            self.obstacleSprites.empty()
+            self.createMap()
+            self.finishSprites.empty()
+            self.createFinish()
+
             self.rotated = 1
+
         elif keys[pygame.K_LEFT]:
+
             self.visibleMap = list(zip(*self.visibleMap))[::-1]
 
+            self.berrySprites.empty()
+            self.createBerry()
+            self.mapSprites.empty()
+            self.obstacleSprites.empty()
+            self.createMap()
+            self.finishSprites.empty()
+            self.createFinish()
+
             self.rotated = 1
 
-    def rotatedDelay(self):
+    def rotationDelay(self):
         if self.rotated == 1:
-            sleep(.1)
+            sleep(0.15)
             self.rotated = 0
 
     def run(self):
@@ -109,17 +132,4 @@ class Level:
         self.berrySprites.update()
 
         self.rotateMap()
-
-        self.rotatedDelay()
-
-        self.mapSprites.empty()
-        self.obstacleSprites.empty()
-        self.createMap()
-
-        self.finishSprites.empty()
-        self.createFinish()
-
-        self.berrySprites.empty()
-        self.createBerry()
-
 

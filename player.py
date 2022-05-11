@@ -1,10 +1,13 @@
 import pygame
 from map import *
 
+berryMap = MAP
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
         super().__init__(groups)
-        self.playerSize = (60, 60)
+        self.playerSize = (99 * 0.56, 106 * 0.56)
         self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(), self.playerSize)
         self.back = pygame.transform.scale(pygame.image.load("graphics/player/back.png").convert_alpha(), self.playerSize)
         self.right = pygame.transform.scale(pygame.image.load("graphics/player/right.png").convert_alpha(), self.playerSize)
@@ -19,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         self.entitySprites = entitySprites
         self.berrySprites = berrySprites
 
-        self.visibleMap = MAP
+        self.visibleMap = berryMap
 
         self.moving = 0
 
@@ -63,8 +66,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.direction.y * speed
         self.collisions('vertical')
 
-        self.point()
-
     def collisions(self, direction):
         if direction == 'horizontal':
             for sprite in self.obstacleSprites:
@@ -100,17 +101,12 @@ class Player(pygame.sprite.Sprite):
             if sprite.rect.colliderect(self.rect):
                 self.berrySprites.empty()
                 self.bonusPoint += 1
-
-    def point(self):
-        if self.bonusPoint == 1:
-            print(MAP)
-            for rowIndex, row in enumerate(MAP):
-                for columnIndex, column in enumerate(row):
-                    if column == "s":
-                        row[columnIndex] = " "
-                        print(MAP)
-                        self.bonusPoint = 0
-
+                for rowIndex, row in enumerate(berryMap):
+                    for columnIndex, column in enumerate(row):
+                        if column == "s":
+                            row[columnIndex] = " "
+                            print(berryMap)
+                            self.bonusPoint = 0
 
     def update(self):
         self.input()

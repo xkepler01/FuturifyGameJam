@@ -1,6 +1,7 @@
 import pygame
 from map import *
 
+
 class Box(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, playerSprites):
         super().__init__(groups)
@@ -18,9 +19,9 @@ class Box(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
-            self.rect.x, self.rect.y = self.rect.y - (self.rect.y % 32), (640 - 32 - self.rect.x) - (640 - 32 - self.rect.x) % 32
+            self.rect.x, self.rect.y = self.rect.y - (self.rect.y % 64), (896 - 64 - self.rect.x) - (896 - 64 - self.rect.x) % 64
         if keys[pygame.K_RIGHT]:
-            self.rect.x, self.rect.y = 640 - 32 - self.rect.y - (640 - 32 - self.rect.y) % 32, self.rect.x - (self.rect.x % 32)
+            self.rect.x, self.rect.y = 896 - 64 - self.rect.y - (896 - 64 - self.rect.y) % 64, self.rect.x - (self.rect.x % 64)
 
     def move(self, speed):
         self.rect.y += self.direction.y * speed
