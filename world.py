@@ -69,7 +69,7 @@ class Level:
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
                 if column == "s":
-                    Blueberry((x, y), [self.berrySprites], self.playerSprites)
+                    Blueberry((x, y), [self.berrySprites])
 
     def rotateMap(self):
         keys = pygame.key.get_pressed()
@@ -118,5 +118,8 @@ class Level:
 
         self.finishSprites.empty()
         self.createFinish()
+
+        self.berrySprites.empty()
+        self.createBerry()
 
 
