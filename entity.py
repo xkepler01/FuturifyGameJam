@@ -3,7 +3,7 @@ from map import *
 
 
 class Box(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacleSprites, playerSprites):
+    def __init__(self, pos, groups, obstacleSprites, playerSprites, berrySprites, finishSprites, entitySprites):
         super().__init__(groups)
         self.image = pygame.transform.scale(pygame.image.load("graphics/box.png").convert_alpha(), (TILESIZE, TILESIZE))
         self.rect = self.image.get_rect(topleft=pos)
@@ -14,6 +14,9 @@ class Box(pygame.sprite.Sprite):
 
         self.obstacleSprites = obstacleSprites
         self.playerSprites = playerSprites
+        self.berrySprites = berrySprites
+        self.finishSprites = finishSprites
+        self.entitiySprites = entitySprites
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -25,22 +28,28 @@ class Box(pygame.sprite.Sprite):
 
     def move(self, speed):
         self.rect.y += self.direction.y * speed
-        self.collisions('vertical')
+        self.collisions()
 
-    def collisions(self, direction):
-        if direction == 'vertical':
-            for sprite in self.obstacleSprites:
-                if sprite.rect.colliderect(self.rect):
-                    if self.direction.y > 0:
-                        self.rect.bottom = sprite.rect.top
-                    if self.direction.y < 0:
-                        self.rect.top = sprite.rect.bottom
-            for sprite in self.playerSprites:
-                if sprite.rect.colliderect(self.rect):
-                    if self.direction.y > 0:
-                        self.rect.bottom = sprite.rect.top
-                    if self.direction.y < 0:
-                        self.rect.top = sprite.rect.bottom
+    def collisions(self):
+        for sprite in self.obstacleSprites:
+            if sprite.rect.colliderect(self.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = sprite.rect.top
+
+        for sprite in self.playerSprites:
+            if sprite.rect.colliderect(self.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = sprite.rect.top
+
+        for sprite in self.berrySprites:
+            if sprite.rect.colliderect(self.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = sprite.rect.top
+
+        for sprite in self.finishSprites:
+            if sprite.rect.colliderect(self.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = sprite.rect.top
 
     def update(self):
         self.input()

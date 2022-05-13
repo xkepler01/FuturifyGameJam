@@ -7,6 +7,7 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode((896, 896))
         pygame.display.set_caption("FuturifyGameJam")
+        pygame.display.set_icon(pygame.image.load("graphics/icon.png"))
         self.clock = pygame.time.Clock()
 
         self.world = Level()
@@ -21,7 +22,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            self.screen.fill("gray")
+            self.screen.blit(pygame.image.load("graphics/background.png"), (0, 0))
             self.world.run()
             pygame.display.update()
             self.clock.tick(60)

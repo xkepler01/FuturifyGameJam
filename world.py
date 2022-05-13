@@ -38,6 +38,8 @@ class Level:
                 y = rowIndex * TILESIZE
                 if column == "x":
                     Tile((x, y), [self.mapSprites, self.obstacleSprites])
+                if column == "h":
+                    Border((x, y), [self.obstacleSprites])
 
     def createFinish(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -61,7 +63,7 @@ class Level:
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
                 if column == "b":
-                    Box((x, y), [self.entitySprites], self.obstacleSprites, self.playerSprites)
+                    Box((x, y), [self.entitySprites], self.obstacleSprites, self.playerSprites, self.berrySprites, self.finishSprites, self.entitySprites)
 
     def createBerry(self):
         for rowIndex, row in enumerate(self.visibleMap):
