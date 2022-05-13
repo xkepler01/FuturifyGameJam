@@ -2,6 +2,9 @@ import pygame
 from map import *
 
 
+def round_to_multiply(x, base):
+    return base * round(x / base)
+
 class Box(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, playerSprites, berrySprites, finishSprites, entitySprites):
         super().__init__(groups)
@@ -24,9 +27,9 @@ class Box(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
-            self.rect.x, self.rect.y = self.rect.y - (self.rect.y % 64), (896 - 64 - self.rect.x) - (896 - 64 - self.rect.x) % 64
+            self.rect.x, self.rect.y = round_to_multiply(self.rect.y, 64), round_to_multiply(832 - self.rect.x, 64)
         if keys[pygame.K_e] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
-            self.rect.x, self.rect.y = 896 - 64 - self.rect.y - (896 - 64 - self.rect.y) % 64, self.rect.x - (self.rect.x % 64)
+            self.rect.x, self.rect.y = round_to_multiply(832 - self.rect.y, 64), round_to_multiply(self.rect.x, 64)
 
     def move(self, speed):
         self.rect.y += self.direction.y * speed

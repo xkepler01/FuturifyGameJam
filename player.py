@@ -2,14 +2,22 @@ import pygame
 from map import *
 
 
+def round_to_multiply(x, base):
+    return base * round(x / base)
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
         super().__init__(groups)
         self.playerSize = (99 * 0.52, 106 * 0.52)
-        self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(), self.playerSize)
-        self.back = pygame.transform.scale(pygame.image.load("graphics/player/back.png").convert_alpha(), self.playerSize)
-        self.right = pygame.transform.scale(pygame.image.load("graphics/player/right.png").convert_alpha(), self.playerSize)
-        self.left = pygame.transform.scale(pygame.image.load("graphics/player/left.png").convert_alpha(), self.playerSize)
+        self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(),
+                                            self.playerSize)
+        self.back = pygame.transform.scale(pygame.image.load("graphics/player/back.png").convert_alpha(),
+                                           self.playerSize)
+        self.right = pygame.transform.scale(pygame.image.load("graphics/player/right.png").convert_alpha(),
+                                            self.playerSize)
+        self.left = pygame.transform.scale(pygame.image.load("graphics/player/left.png").convert_alpha(),
+                                           self.playerSize)
         self.image = self.front
         self.rect = self.image.get_rect(topleft=pos)
 
@@ -29,11 +37,12 @@ class Player(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
-            self.rect.x, self.rect.y = self.rect.y, 896-64 - self.rect.x
-        if keys[pygame.K_e] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
-            self.rect.x, self.rect.y = 896-64 - self.rect.y, self.rect.x
-
+        if keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[
+            pygame.K_d]:
+            self.rect.x, self.rect.y = round_to_multiply(self.rect.y, 64), round_to_multiply(832 - self.rect.x, 64)
+        if keys[pygame.K_e] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[
+            pygame.K_d]:
+            self.rect.x, self.rect.y = round_to_multiply(832 - self.rect.y, 64), round_to_multiply(self.rect.x, 64)
 
         if keys[pygame.K_d] and self.moving == 0:
             self.direction.x = 1
@@ -79,7 +88,6 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.x < 0:
                         self.rect.left = sprite.rect.right
 
-
         if direction == 'vertical':
             for sprite in self.obstacleSprites:
                 if sprite.rect.colliderect(self.rect):
@@ -103,4 +111,3 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
-
