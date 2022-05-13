@@ -90,3 +90,4 @@ arrays = every_array(12)
 if __name__ == "__main__":
     while input() == '':
         print(*random_map(arrays), sep='\n')
+
