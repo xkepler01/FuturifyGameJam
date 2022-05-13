@@ -15,6 +15,7 @@ class Game:
         pygame.mixer.music.load("sounds/music.mp3")
         pygame.mixer.music.play(-1)
 
+
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -22,15 +23,14 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            self.screen.blit(pygame.transform.rotate(pygame.image.load("graphics/background.png"), self.world.rotated_angle), (0, 0))
+            self.screen.blit(self.world.background_image, (0, 0))
             self.world.run()
             pygame.display.update()
             self.clock.tick(60)
+            print(self.clock.get_fps())
 
 
 if __name__ == "__main__":
     game = Game()
     game.run()
-
-
 
