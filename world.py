@@ -8,7 +8,7 @@ from entity import Blueberry
 from time import sleep
 
 class Level:
-    def __init__(self, MAP):
+    def __init__(self):
         self.rotated_angle = 0
         self.displaySurface = pygame.display.get_surface()
 
@@ -54,7 +54,7 @@ class Level:
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
                 if column == "p":
-                    self.player = Player((x, y), [self.playerSprites], self.obstacleSprites, self.entitySprites, self.berrySprites, self.visibleSprites, self.finishSprites)
+                    self.player = Player((x, y), [self.playerSprites], self.obstacleSprites, self.entitySprites, self.berrySprites, self.finishSprites)
 
     def createBox(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -62,7 +62,7 @@ class Level:
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
                 if column == "b":
-                    Box((x, y), [self.entitySprites], self.obstacleSprites, self.playerSprites, self.berrySprites, self.finishSprites, self.entitySprites, self.visibleSprites)
+                    Box((x, y), [self.entitySprites], self.obstacleSprites, self.playerSprites, self.berrySprites, self.finishSprites, self.entitySprites)
 
     def createBerry(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -117,6 +117,26 @@ class Level:
             sleep(0.2)
             self.rotated = 0
 
+    def getNewLevel(self):
+        if self.player.finished == 1:
+            print(1)
+            self.visibleMap = MAP
+
+            self.obstacleSprites.empty()
+            self.mapSprites.empty()
+            self.playerSprites.empty()
+            self.entitySprites.empty()
+            self.finishSprites.empty()
+            self.berrySprites.empty()
+
+            self.createMap()
+            self.createPlayer()
+            self.createBox()
+            self.createFinish()
+            self.createBerry()
+
+            self.player.finished = 0
+
     def run(self):
         #debug(self.player.direction)
         #debug(self.player.rect.y)
@@ -142,4 +162,5 @@ class Level:
         self.rotateMap()
         self.rotationDelay()
 
+        self.getNewLevel()
 

@@ -7,7 +7,7 @@ def round_to_multiply(x, base):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites, finishSprites, MAP):
+    def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites, finishSprites):
 
         super().__init__(groups)
         self.playerSize = (99 * 0.52, 106 * 0.52)
@@ -72,6 +72,7 @@ class Player(pygame.sprite.Sprite):
         self.collisions('horizontal')
         self.rect.y += self.direction.y * speed
         self.collisions('vertical')
+        self.collisions('other')
 
     def collisions(self, direction):
         if direction == 'horizontal':
@@ -116,3 +117,4 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
+        print(self.finished)
