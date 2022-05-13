@@ -29,6 +29,7 @@ class Level:
 
         self.rotated = 0
         self.background_image = pygame.image.load("graphics/background.png")
+        self.score = 0
 
     def createMap(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -119,7 +120,7 @@ class Level:
 
     def getNewLevel(self):
         if self.player.finished == 1:
-            print(1)
+            self.score += self.player.score
             self.visibleMap = MAP
 
             self.obstacleSprites.empty()
@@ -141,7 +142,7 @@ class Level:
         #debug(self.player.direction)
         #debug(self.player.rect.y)
 
-        debug("Score is: " + str(self.player.score))
+        debug("Score is: " + str(self.score))
 
         self.mapSprites.draw(self.displaySurface)
         self.mapSprites.update()
