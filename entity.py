@@ -18,6 +18,8 @@ class Box(pygame.sprite.Sprite):
         self.finishSprites = finishSprites
         self.entitiySprites = entitySprites
 
+        self.posX, self.posY = pos
+
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -43,6 +45,11 @@ class Box(pygame.sprite.Sprite):
 
         for sprite in self.berrySprites:
             if sprite.rect.colliderect(self.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = sprite.rect.top
+
+        for sprite in self.entitiySprites:
+            if sprite.rect.colliderect(self.rect) and not sprite.rect.collidepoint(self.posX + TILESIZE - 1, self.posX + TILESIZE - 1):
                 if self.direction.y > 0:
                     self.rect.bottom = sprite.rect.top
 
