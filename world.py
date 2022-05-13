@@ -30,6 +30,7 @@ class Level:
         self.createBerry()
 
         self.rotated = 0
+        self.background_image = pygame.image.load("graphics/background.png")
 
     def createMap(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -97,8 +98,7 @@ class Level:
             self.createFinish()
 
             self.rotated = 1
-            self.rotated_angle -= 90
-            self.rotated_angle %= 360
+            self.background_image = pygame.transform.rotate(self.background_image, -90)
 
         elif keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.visibleMap = list(map(list, zip(*self.visibleMap)))[::-1]
@@ -112,8 +112,7 @@ class Level:
             self.createFinish()
 
             self.rotated = 1
-            self.rotated_angle += 90
-            self.rotated_angle %= 360
+            self.background_image = pygame.transform.rotate(self.background_image, 90)
 
     def rotationDelay(self):
         if self.rotated == 1:
