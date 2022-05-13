@@ -1,6 +1,7 @@
 import pygame
 from map import *
 
+score = 0
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites):
@@ -98,7 +99,8 @@ class Player(pygame.sprite.Sprite):
         for sprite in self.berrySprites:
             if sprite.rect.colliderect(self.rect):
                 self.berrySprites.empty()
-                self.bonusPoint += 1
+                self.bonusPoint = 1
+                score += 1
 
     def update(self):
         self.input()
