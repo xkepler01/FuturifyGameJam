@@ -1,7 +1,6 @@
 import pygame
 from map import *
 
-score = 0
 
 def round_to_multiply(x, base):
     return base * round(x / base)
@@ -11,14 +10,10 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites, MAP):
         super().__init__(groups)
         self.playerSize = (99 * 0.52, 106 * 0.52)
-        self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(),
-                                            self.playerSize)
-        self.back = pygame.transform.scale(pygame.image.load("graphics/player/back.png").convert_alpha(),
-                                           self.playerSize)
-        self.right = pygame.transform.scale(pygame.image.load("graphics/player/right.png").convert_alpha(),
-                                            self.playerSize)
-        self.left = pygame.transform.scale(pygame.image.load("graphics/player/left.png").convert_alpha(),
-                                           self.playerSize)
+        self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(), self.playerSize)
+        self.back = pygame.transform.scale(pygame.image.load("graphics/player/back.png").convert_alpha(), self.playerSize)
+        self.right = pygame.transform.scale(pygame.image.load("graphics/player/right.png").convert_alpha(), self.playerSize)
+        self.left = pygame.transform.scale(pygame.image.load("graphics/player/left.png").convert_alpha(), self.playerSize)
         self.image = self.front
         self.rect = self.image.get_rect(topleft=pos)
 
@@ -34,6 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.moving = 0
 
         self.bonusPoint = 0
+        self.score = 0
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -108,7 +104,7 @@ class Player(pygame.sprite.Sprite):
             if sprite.rect.colliderect(self.rect):
                 self.berrySprites.empty()
                 self.bonusPoint = 1
-                score += 1
+                self.score += 1
 
     def update(self):
         self.input()

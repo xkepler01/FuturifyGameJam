@@ -2,7 +2,7 @@ import pygame, sys
 from debug import debug
 from map import *
 from tile import *
-from player import Player, score
+from player import Player
 from entity import Box
 from entity import Blueberry
 from time import sleep
@@ -119,7 +119,9 @@ class Level:
 
     def run(self):
         #debug(self.player.direction)
-        debug(score)
+        #debug(self.player.rect.y)
+
+        debug("Score is: " + str(self.player.score))
 
         self.mapSprites.draw(self.displaySurface)
         self.mapSprites.update()
