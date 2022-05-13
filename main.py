@@ -8,7 +8,7 @@ class Game:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((896, 896))
-        pygame.display.set_caption("FuturifyGameJam")
+        pygame.display.set_caption("The Mage of The Berry")
         pygame.display.set_icon(pygame.image.load("graphics/icon.png"))
         self.clock = pygame.time.Clock()
 
@@ -26,8 +26,9 @@ class Game:
                     sys.exit()
 
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_RETURN]:
+            if keys[pygame.K_RETURN] or self.world.player.finished == 1:
                 self.world = Level(random_map.random_map(random_map.arrays))
+                self.world.player.finished = 0
 
             self.screen.blit(self.world.background_image, (0, 0))
             self.world.run()
