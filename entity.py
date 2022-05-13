@@ -21,9 +21,9 @@ class Box(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.rect.x, self.rect.y = self.rect.y - (self.rect.y % 64), (896 - 64 - self.rect.x) - (896 - 64 - self.rect.x) % 64
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.rect.x, self.rect.y = 896 - 64 - self.rect.y - (896 - 64 - self.rect.y) % 64, self.rect.x - (self.rect.x % 64)
 
     def move(self, speed):
@@ -42,11 +42,6 @@ class Box(pygame.sprite.Sprite):
                     self.rect.bottom = sprite.rect.top
 
         for sprite in self.berrySprites:
-            if sprite.rect.colliderect(self.rect):
-                if self.direction.y > 0:
-                    self.rect.bottom = sprite.rect.top
-
-        for sprite in self.finishSprites:
             if sprite.rect.colliderect(self.rect):
                 if self.direction.y > 0:
                     self.rect.bottom = sprite.rect.top

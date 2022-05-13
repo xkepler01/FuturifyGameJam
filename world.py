@@ -24,9 +24,9 @@ class Level:
         self.visibleMap = MAP
 
         self.createMap()
-        self.createFinish()
         self.createPlayer()
         self.createBox()
+        self.createFinish()
         self.createBerry()
 
         self.rotated = 0
@@ -85,7 +85,7 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.visibleMap = list(map(list, zip(*self.visibleMap[::-1])))
 
             self.berrySprites.empty()
@@ -98,7 +98,7 @@ class Level:
 
             self.rotated = 1
 
-        elif keys[pygame.K_LEFT]:
+        elif keys[pygame.K_LEFT] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.visibleMap = list(map(list, zip(*self.visibleMap)))[::-1]
 
             self.berrySprites.empty()
@@ -123,14 +123,14 @@ class Level:
         self.mapSprites.draw(self.displaySurface)
         self.mapSprites.update()
 
-        self.entitySprites.draw(self.displaySurface)
-        self.entitySprites.update()
-
         self.playerSprites.draw(self.displaySurface)
         self.playerSprites.update()
 
         self.finishSprites.draw(self.displaySurface)
         self.finishSprites.update()
+
+        self.entitySprites.draw(self.displaySurface)
+        self.entitySprites.update()
 
         self.berrySprites.draw(self.displaySurface)
         self.berrySprites.update()
