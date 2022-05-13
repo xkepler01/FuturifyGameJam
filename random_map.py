@@ -58,15 +58,16 @@ def random_map(arrays):
 
     p = []
     f = []
+    s = []
 
-    while p == f:
+    while p == f or p == s or s == f:
         p = [randint(0, 11), randint(0, 11)]
         f = [randint(0, 11), randint(0, 11)]
         s = [randint(0, 11), randint(0, 11)]
 
     random_map[p[0]][p[1]] = 'p'
     random_map[f[0]][f[1]] = 'f'
-    random_map[f[0]][f[1]] = 's'
+    random_map[s[0]][s[1]] = 's'
 
     first_and_last_array = ['h' for i in range(14)]
 
