@@ -10,7 +10,7 @@ from time import sleep
 
 class Level:
     def __init__(self):
-
+        self.rotated_angle = 0
         self.displaySurface = pygame.display.get_surface()
 
         self.visibleSprites = pygame.sprite.Group()
@@ -97,6 +97,8 @@ class Level:
             self.createFinish()
 
             self.rotated = 1
+            self.rotated_angle -= 90
+            self.rotated_angle %= 360
 
         elif keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.visibleMap = list(map(list, zip(*self.visibleMap)))[::-1]
@@ -110,6 +112,8 @@ class Level:
             self.createFinish()
 
             self.rotated = 1
+            self.rotated_angle += 90
+            self.rotated_angle %= 360
 
     def rotationDelay(self):
         if self.rotated == 1:

@@ -1,7 +1,6 @@
 import sys, pygame
 from world import Level
 
-
 class Game:
     def __init__(self):
         pygame.init()
@@ -22,7 +21,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            self.screen.blit(pygame.image.load("graphics/background.png"), (0, 0))
+            self.screen.blit(pygame.transform.rotate(pygame.image.load("graphics/background.png"), self.world.rotated_angle), (0, 0))
             self.world.run()
             pygame.display.update()
             self.clock.tick(60)
