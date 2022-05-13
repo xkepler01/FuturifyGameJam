@@ -84,6 +84,7 @@ def random_map(arrays):
     return mop
 
 
-arrays = every_array(12)
-while input() == '':
-   print(*random_map(arrays), sep='\n')
+if __name__ == "__main__":
+    arrays = every_array(12)
+    while input() == '':
+       print(*random_map(arrays), sep='\n')
