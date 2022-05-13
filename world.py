@@ -75,7 +75,6 @@ class Level:
 
     def removeBerry(self):
         if self.player.bonusPoint == 1:
-            print(1)
             for rowIndex, row in enumerate(self.visibleMap):
                 for columnIndex, column in enumerate(row):
                     if column == "s":
