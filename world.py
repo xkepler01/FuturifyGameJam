@@ -85,7 +85,7 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_RIGHT] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
+        if keys[pygame.K_e] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.visibleMap = list(map(list, zip(*self.visibleMap[::-1])))
 
             self.berrySprites.empty()
@@ -98,7 +98,7 @@ class Level:
 
             self.rotated = 1
 
-        elif keys[pygame.K_LEFT] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
+        elif keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
             self.visibleMap = list(map(list, zip(*self.visibleMap)))[::-1]
 
             self.berrySprites.empty()
