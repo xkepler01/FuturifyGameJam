@@ -7,7 +7,8 @@ def round_to_multiply(x, base):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites, MAP):
+    def __init__(self, pos, groups, obstacleSprites, entitySprites, berrySprites, finishSprites, MAP):
+
         super().__init__(groups)
         self.playerSize = (99 * 0.52, 106 * 0.52)
         self.front = pygame.transform.scale(pygame.image.load("graphics/player/front.png").convert_alpha(), self.playerSize)
@@ -23,12 +24,14 @@ class Player(pygame.sprite.Sprite):
         self.obstacleSprites = obstacleSprites
         self.entitySprites = entitySprites
         self.berrySprites = berrySprites
+        self.finishSprites = finishSprites
 
         self.visibleMap = MAP
 
         self.moving = 0
 
         self.bonusPoint = 0
+        self.finished = 0
         self.score = 0
 
     def input(self):
@@ -104,7 +107,11 @@ class Player(pygame.sprite.Sprite):
             if sprite.rect.colliderect(self.rect):
                 self.berrySprites.empty()
                 self.bonusPoint = 1
-                self.score += 1
+                self.score += 3
+
+        for sprite in self.finishSprites:
+            if sprite.rect.colliderect(self.rect):
+                self.finished = 1
 
     def update(self):
         self.input()

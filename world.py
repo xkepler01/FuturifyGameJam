@@ -54,7 +54,7 @@ class Level:
                 x = columnIndex * TILESIZE
                 y = rowIndex * TILESIZE
                 if column == "p":
-                    self.player = Player((x, y), [self.playerSprites], self.obstacleSprites, self.entitySprites, self.berrySprites, self.visibleSprites)
+                    self.player = Player((x, y), [self.playerSprites], self.obstacleSprites, self.entitySprites, self.berrySprites, self.visibleSprites, self.finishSprites)
 
     def createBox(self):
         for rowIndex, row in enumerate(self.visibleMap):
@@ -117,6 +117,26 @@ class Level:
             sleep(0.2)
             self.rotated = 0
 
+    def getNewLevel(self):
+        if self.player.finished == 1:
+            self.visibleMap = MAP
+
+            self.obstacleSprites.empty()
+            self.mapSprites.empty()
+            self.playerSprites.empty()
+            self.entitySprites.empty()
+            self.finishSprites.empty()
+            self.berrySprites.empty()
+
+
+            self.createMap()
+            self.createPlayer()
+            self.createBox()
+            self.createFinish()
+            self.createBerry()
+
+            self.player.finished = 0
+
     def run(self):
         #debug(self.player.direction)
         #debug(self.player.rect.y)
@@ -141,4 +161,6 @@ class Level:
 
         self.rotateMap()
         self.rotationDelay()
+
+        self.getNewLevel()
 
