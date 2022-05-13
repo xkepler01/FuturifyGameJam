@@ -25,6 +25,7 @@ class Game:
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RETURN]:
+                self.world.player.score = 0
                 self.world.player.finished = 1
 
             self.screen.blit(self.world.background_image, (0, 0))
