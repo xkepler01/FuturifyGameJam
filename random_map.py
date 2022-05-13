@@ -1,3 +1,9 @@
+# porovnavani s predchozimi
+# cesta k cili
+# od nejvice zdi
+# jen 1x p a 1x o
+
+
 from random import randint
 
 
@@ -87,11 +93,31 @@ def every_array(size):
     only_ones_in_map = [p, f]
 
     arrays = make_arrays(size, things, only_ones_in_map)
+    # almost_map = make_arrays(size, arrays, []) # !
+
+    # first_and_last_array = [x for i in range(size + 2)]
+
+    # for i in almost_map:
+    # mop = []
+    # mop.append(first_and_last_array[:])
+
+    # for index,j in enumerate(i):
+    # mop.append([])
+    # mop[index + 1].append(x)
+
+    # for k in j:
+    # mop[index + 1].append(k)
+    # mop[index + 1].append(x)
+    # mop.append(first_and_last_array[:])
+    # all_maps.append(map)
 
     return arrays  # all_maps
 
 
 def random_map(arrays):
+    # arrays = every_array(12)
+    # sorted_arrays = sort_arrays(small_maps) # [p_maps, f_maps, p_f_maps, _maps]
+    # arrays = []
     random_map = []
     n = []
 
@@ -111,11 +137,9 @@ def random_map(arrays):
     while p == f:
         p = [randint(0, 11), randint(0, 11)]
         f = [randint(0, 11), randint(0, 11)]
-        s = [randint(0, 11), randint(0, 11)]
 
     random_map[p[0]][p[1]] = 'p'
     random_map[f[0]][f[1]] = 'f'
-    random_map[s[0]][s[1]] = 's'
 
     first_and_last_array = ['h' for i in range(14)]
 
