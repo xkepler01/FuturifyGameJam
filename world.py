@@ -6,6 +6,7 @@ from player import Player
 from entity import Box
 from entity import Blueberry
 from time import sleep
+import random_map
 
 class Level:
     def __init__(self):
@@ -19,7 +20,7 @@ class Level:
         self.mapSprites = pygame.sprite.Group()
         self.entitySprites = pygame.sprite.Group()
         self.berrySprites = pygame.sprite.Group()
-        self.visibleMap = MAP
+        self.visibleMap = random_map.random_map(random_map.arrays)
 
         self.createMap()
         self.createPlayer()
@@ -120,7 +121,7 @@ class Level:
     def getNewLevel(self):
         if self.player.finished == 1:
             self.score += self.player.score
-            self.visibleMap = MAP
+            self.visibleMap = random_map.random_map(random_map.arrays)
 
             self.obstacleSprites.empty()
             self.mapSprites.empty()

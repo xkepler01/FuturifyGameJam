@@ -26,8 +26,6 @@ class Player(pygame.sprite.Sprite):
         self.berrySprites = berrySprites
         self.finishSprites = finishSprites
 
-        self.visibleMap = MAP
-
         self.moving = 0
 
         self.bonusPoint = 0
