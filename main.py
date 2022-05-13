@@ -1,4 +1,6 @@
 import sys, pygame
+import random_map
+
 from world import Level
 
 
@@ -10,7 +12,7 @@ class Game:
         pygame.display.set_icon(pygame.image.load("graphics/icon.png"))
         self.clock = pygame.time.Clock()
 
-        self.world = Level()
+        self.world = Level(random_map.random_map(random_map.arrays))
 
         pygame.mixer.music.load("sounds/music.mp3")
         pygame.mixer.music.play(-1)
@@ -22,6 +24,10 @@ class Game:
                 if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                     pygame.quit()
                     sys.exit()
+
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RETURN]:
+                self.world = Level(random_map.random_map(random_map.arrays))
 
             self.screen.blit(self.world.background_image, (0, 0))
             self.world.run()
