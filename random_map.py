@@ -1,9 +1,3 @@
-# porovnavani s predchozimi
-# cesta k cili
-# od nejvice zdi
-# jen 1x p a 1x o
-
-
 from random import randint
 
 
@@ -39,48 +33,6 @@ def control_arrays(only_ones, map):
     return new_arrays
 
 
-def sort_arrays(maps):  # funguje?
-    f_maps = []
-    p_maps = []
-    p_f_maps = []
-    _maps = []
-
-    for i in maps:
-        counter_p_f = [0, 0]
-        for j in i:
-            for k in j:
-                if k == 'p':
-                    counter_p_f[0] += 1
-                elif k == 'f':
-                    counter_p_f[1] += 1
-            if counter_p_f[0] == 1 and counter_p_f[1] == 1:
-                p_f_maps.append(i)
-            elif counter_p_f[0] == 1 and counter_p_f[1] == 0:
-                p_maps.append(i)
-            elif counter_p_f[0] == 0 and counter_p_f[1] == 1:
-                f_maps.append(i)
-            elif counter_p_f[0] == 0 and counter_p_f[1] == 0:
-                _maps.append(i)
-
-        return [p_maps, f_maps, p_f_maps, _maps]
-
-    counter = 0
-    for index, i in enumerate(x):
-        p = 0
-        o = 0
-        for j in i:
-            for k in j:
-                if k == 'p':
-                    p += 1
-                elif k == 'f':
-                    f += 1
-        if not (p == 1 and o == 1):
-            x.pop(index)  # - counter)
-            counter += 1
-
-    return x
-
-
 def every_array(size):
     o = 'o'
     x = 'x'
@@ -93,43 +45,17 @@ def every_array(size):
     only_ones_in_map = [p, f]
 
     arrays = make_arrays(size, things, only_ones_in_map)
-    # almost_map = make_arrays(size, arrays, []) # !
 
-    # first_and_last_array = [x for i in range(size + 2)]
 
-    # for i in almost_map:
-    # mop = []
-    # mop.append(first_and_last_array[:])
-
-    # for index,j in enumerate(i):
-    # mop.append([])
-    # mop[index + 1].append(x)
-
-    # for k in j:
-    # mop[index + 1].append(k)
-    # mop[index + 1].append(x)
-    # mop.append(first_and_last_array[:])
-    # all_maps.append(map)
-
-    return arrays  # all_maps
+    return arrays
 
 
 def random_map(arrays):
-    # arrays = every_array(12)
-    # sorted_arrays = sort_arrays(small_maps) # [p_maps, f_maps, p_f_maps, _maps]
-    # arrays = []
     random_map = []
     n = []
 
-    # arrays.append(sorted_maps[0][randint(0, len(sorted_arrays[0]) -1)])
-    # arrays.append(sorted_maps[1][randint(0, len(sorted_arrays[1]) -1)])
     for i in range(12):
         random_map.append(arrays[randint(0, len(arrays) - 1)])
-
-    # for i in random_map:
-    #    for j in i:
-    #        if j == ' ':
-    #            n.append([i, j])
 
     p = []
     f = []
@@ -160,8 +86,4 @@ def random_map(arrays):
 
 arrays = every_array(12)
 while input() == '':
-    print(*random_map(arrays), sep='\n')
-# print(*every_map(12), sep='\n')
-# for map in every_map(3):
-# print(*map, sep='\n')
-# print('\n')
+   print(*random_map(arrays), sep='\n')
