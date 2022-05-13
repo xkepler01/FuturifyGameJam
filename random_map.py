@@ -46,7 +46,6 @@ def every_array(size):
 
     arrays = make_arrays(size, things, only_ones_in_map)
 
-
     return arrays
 
 
@@ -84,7 +83,8 @@ def random_map(arrays):
     return mop
 
 
+arrays = every_array(12)
+
 if __name__ == "__main__":
-    arrays = every_array(12)
     while input() == '':
-       print(*random_map(arrays), sep='\n')
+        print(*random_map(arrays), sep='\n')
