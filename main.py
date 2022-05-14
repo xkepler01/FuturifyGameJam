@@ -6,7 +6,7 @@ class Game:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((896, 896))
-        pygame.display.set_caption("The Mage of The Berry")
+        pygame.display.set_caption("The Mage of the Berry")
         pygame.display.set_icon(pygame.image.load("graphics/icon.png"))
         self.clock = pygame.time.Clock()
 
