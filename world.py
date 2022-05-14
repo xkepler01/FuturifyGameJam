@@ -85,33 +85,19 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_e] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
-            self.visibleMap = list(map(list, zip(*self.visibleMap[::-1])))
-
-            self.berrySprites.empty()
-            self.createBerry()
-            self.mapSprites.empty()
-            self.obstacleSprites.empty()
-            self.createMap()
-            self.finishSprites.empty()
-            self.createFinish()
-
+        if keys[pygame.K_e]:
+            self.rotated_angle += 90
+            self.player.rotate(90)
             self.rotated = 1
-            self.background_image = pygame.transform.rotate(self.background_image, -90)
+            for entity in self.entitySprites:
+                entity.direction.y, entity.direction.x = entity.direction.x, -entity.direction.y
 
-        elif keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
-            self.visibleMap = list(map(list, zip(*self.visibleMap)))[::-1]
-
-            self.berrySprites.empty()
-            self.createBerry()
-            self.mapSprites.empty()
-            self.obstacleSprites.empty()
-            self.createMap()
-            self.finishSprites.empty()
-            self.createFinish()
-
+        elif keys[pygame.K_q]:
+            self.rotated_angle -= 90
+            self.player.rotate(-90)
             self.rotated = 1
-            self.background_image = pygame.transform.rotate(self.background_image, 90)
+            for entity in self.entitySprites:
+                entity.direction.y, entity.direction.x = -entity.direction.x, entity.direction.x
 
     def rotationDelay(self):
         if self.rotated == 1:
@@ -141,8 +127,6 @@ class Level:
     def run(self):
         #debug(self.player.direction)
         #debug(self.player.rect.y)
-
-        debug("Score is: " + str(self.score))
 
         self.mapSprites.draw(self.displaySurface)
         self.mapSprites.update()

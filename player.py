@@ -1,3 +1,5 @@
+import math
+
 import pygame
 from map import *
 
@@ -26,6 +28,9 @@ class Player(pygame.sprite.Sprite):
         self.berrySprites = berrySprites
         self.finishSprites = finishSprites
 
+        self.rotate_angle = 0
+        self.rotate_radians = 0
+
         self.moving = 0
 
         self.bonusPoint = 0
@@ -35,29 +40,26 @@ class Player(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_q] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[
-            pygame.K_d]:
-            self.rect.x, self.rect.y = round_to_multiply(self.rect.y, 64), round_to_multiply(832 - self.rect.x, 64)
-        if keys[pygame.K_e] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[
-            pygame.K_d]:
-            self.rect.x, self.rect.y = round_to_multiply(832 - self.rect.y, 64), round_to_multiply(self.rect.x, 64)
-
         if keys[pygame.K_d] and self.moving == 0:
-            self.direction.x = 1
+            self.direction.x = math.cos(self.rotate_radians)
+            self.direction.y = math.sin(self.rotate_radians)
             self.moving = 1
-            self.image = self.right
+            self.image = pygame.transform.rotate(self.right, -self.rotate_angle)
         elif keys[pygame.K_a] and self.moving == 0:
-            self.direction.x = -1
+            self.direction.x = -math.cos(self.rotate_radians)
+            self.direction.y = -math.sin(self.rotate_radians)
             self.moving = 1
-            self.image = self.left
+            self.image = pygame.transform.rotate(self.left, -self.rotate_angle)
         elif keys[pygame.K_w] and self.moving == 0:
-            self.direction.y = -1
+            self.direction.x = math.sin(self.rotate_radians)
+            self.direction.y = -math.cos(self.rotate_radians)
             self.moving = 1
-            self.image = self.back
+            self.image = pygame.transform.rotate(self.back, -self.rotate_angle)
         elif keys[pygame.K_s] and self.moving == 0:
-            self.direction.y = 1
+            self.direction.x = -math.sin(self.rotate_radians)
+            self.direction.y = math.cos(self.rotate_radians)
             self.moving = 1
-            self.image = self.front
+            self.image = pygame.transform.rotate(self.front, -self.rotate_angle)
         else:
             self.direction.x = 0
             self.direction.y = 0
@@ -71,6 +73,12 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.direction.y * speed
         self.collisions('vertical')
         self.collisions('other')
+
+    def rotate(self, angle):
+        self.rotate_angle += angle
+        self.rotate_angle %= 360
+        self.rotate_radians = self.rotate_angle * math.pi / 180
+        self.image = pygame.transform.rotate(self.image, -angle)
 
     def collisions(self, direction):
         if direction == 'horizontal':

@@ -1,5 +1,5 @@
 import sys, pygame
-from world import Level
+from world import Level,debug
 
 
 class Game:
@@ -29,6 +29,10 @@ class Game:
 
             self.screen.blit(self.world.background_image, (0, 0))
             self.world.run()
+            self.screen.blit(pygame.transform.rotate(self.screen, self.world.rotated_angle), (0, 0))
+
+            debug("Score is: " + str(self.world.score))
+
             pygame.display.update()
             self.clock.tick(60)
 
@@ -37,3 +41,4 @@ if __name__ == "__main__":
     game = Game()
     game.run()
 
+# nejake zmeny...
