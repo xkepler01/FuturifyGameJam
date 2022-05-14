@@ -5,6 +5,7 @@ from map import *
 def round_to_multiply(x, base):
     return base * round(x / base)
 
+
 class Box(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacleSprites, playerSprites, berrySprites, finishSprites, entitySprites):
         super().__init__(groups)
