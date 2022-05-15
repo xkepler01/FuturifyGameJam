@@ -85,7 +85,7 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_e] and not self.rotated:
+        if keys[pygame.K_q] and not self.rotated:
             self.rotated_angle += 90
             self.player.rotate(90)
 
@@ -101,7 +101,7 @@ class Level:
 
             self.rotated = 1
 
-        elif keys[pygame.K_q] and not self.rotated:
+        elif keys[pygame.K_e] and not self.rotated:
             self.rotated_angle -= 90
             self.player.rotate(-90)
 
