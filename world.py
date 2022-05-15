@@ -85,21 +85,38 @@ class Level:
     def rotateMap(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_e]:
+        if keys[pygame.K_e] and not self.rotated:
             self.rotated_angle += 90
             self.player.rotate(90)
-            self.rotated = 1
+
             for entity in self.entitySprites:
                 entity.direction.y, entity.direction.x = entity.direction.x, -entity.direction.y
                 entity.image = pygame.transform.rotate(entity.image, -90)
 
-        elif keys[pygame.K_q]:
+            for berry in self.berrySprites:
+                berry.image = pygame.transform.rotate(berry.image, -90)
+
+            for finish in self.finishSprites:
+                finish.image = pygame.transform.rotate(finish.image, -90)
+
+            self.rotated = 1
+
+        elif keys[pygame.K_q] and not self.rotated:
             self.rotated_angle -= 90
             self.player.rotate(-90)
-            self.rotated = 1
+
             for entity in self.entitySprites:
                 entity.direction.y, entity.direction.x = -entity.direction.x, entity.direction.y
                 entity.image = pygame.transform.rotate(entity.image, 90)
+
+            for berry in self.berrySprites:
+                berry.image = pygame.transform.rotate(berry.image, 90)
+
+            for finish in self.finishSprites:
+                finish.image = pygame.transform.rotate(finish.image, 90)
+
+            self.rotated = 1
+
 
     def rotationDelay(self):
         if self.rotated == 1:
