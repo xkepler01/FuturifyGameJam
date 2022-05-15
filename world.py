@@ -157,11 +157,11 @@ class Level:
         self.finishSprites.draw(self.displaySurface)
         self.finishSprites.update()
 
-        self.entitySprites.draw(self.displaySurface)
-        self.entitySprites.update()
-
         self.berrySprites.draw(self.displaySurface)
         self.berrySprites.update()
+
+        self.entitySprites.draw(self.displaySurface)
+        self.entitySprites.update()
         self.removeBerry()
 
         self.rotateMap()

@@ -60,19 +60,6 @@ class Box(pygame.sprite.Sprite):
                     if self.direction.x < 0:
                         self.rect.left = sprite.rect.right
 
-        for sprite in self.berrySprites:
-            if sprite.rect.colliderect(self.rect):
-                if vertical:
-                    if self.direction.y > 0:
-                        self.rect.bottom = sprite.rect.top
-                    if self.direction.y < 0:
-                        self.rect.top = sprite.rect.bottom
-                else:
-                    if self.direction.x > 0:
-                        self.rect.right = sprite.rect.left
-                    if self.direction.x < 0:
-                        self.rect.left = sprite.rect.right
-
         for sprite in self.entitySprites:
             if sprite.rect.colliderect(self.rect) and sprite.rect != self.rect:
                 if vertical:
