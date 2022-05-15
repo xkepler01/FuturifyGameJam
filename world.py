@@ -91,13 +91,15 @@ class Level:
             self.rotated = 1
             for entity in self.entitySprites:
                 entity.direction.y, entity.direction.x = entity.direction.x, -entity.direction.y
+                entity.image = pygame.transform.rotate(entity.image, -90)
 
         elif keys[pygame.K_q]:
             self.rotated_angle -= 90
             self.player.rotate(-90)
             self.rotated = 1
             for entity in self.entitySprites:
-                entity.direction.y, entity.direction.x = -entity.direction.x, entity.direction.x
+                entity.direction.y, entity.direction.x = -entity.direction.x, entity.direction.y
+                entity.image = pygame.transform.rotate(entity.image, 90)
 
     def rotationDelay(self):
         if self.rotated == 1:
@@ -123,6 +125,7 @@ class Level:
             self.createBerry()
 
             self.player.finished = 0
+            self.rotated_angle = 0
 
     def run(self):
         #debug(self.player.direction)

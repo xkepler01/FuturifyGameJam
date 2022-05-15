@@ -40,23 +40,23 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_d] and self.moving == 0:
-            self.direction.x = math.cos(self.rotate_radians)
-            self.direction.y = math.sin(self.rotate_radians)
+            self.direction.x = int(math.cos(self.rotate_radians))
+            self.direction.y = int(math.sin(self.rotate_radians))
             self.moving = 1
             self.image = pygame.transform.rotate(self.right, -self.rotate_angle)
         elif keys[pygame.K_a] and self.moving == 0:
-            self.direction.x = -math.cos(self.rotate_radians)
-            self.direction.y = -math.sin(self.rotate_radians)
+            self.direction.x = int(-math.cos(self.rotate_radians))
+            self.direction.y = int(-math.sin(self.rotate_radians))
             self.moving = 1
             self.image = pygame.transform.rotate(self.left, -self.rotate_angle)
         elif keys[pygame.K_w] and self.moving == 0:
-            self.direction.x = math.sin(self.rotate_radians)
-            self.direction.y = -math.cos(self.rotate_radians)
+            self.direction.x = int(math.sin(self.rotate_radians))
+            self.direction.y = int(-math.cos(self.rotate_radians))
             self.moving = 1
             self.image = pygame.transform.rotate(self.back, -self.rotate_angle)
         elif keys[pygame.K_s] and self.moving == 0:
-            self.direction.x = -math.sin(self.rotate_radians)
-            self.direction.y = math.cos(self.rotate_radians)
+            self.direction.x = int(-math.sin(self.rotate_radians))
+            self.direction.y = int(math.cos(self.rotate_radians))
             self.moving = 1
             self.image = pygame.transform.rotate(self.front, -self.rotate_angle)
         else:
