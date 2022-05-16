@@ -40,7 +40,7 @@ class Game:
             self.world.run()
             self.screen.blit(rot_center(self.screen, self.world.rotated_angle), (0, 0))
 
-            debug("Score is: " + str(self.world.score))
+            debug("Score is: " + str(self.world.score + self.world.player.score))
 
             pygame.display.update()
             self.clock.tick(60)
