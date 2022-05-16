@@ -1,3 +1,5 @@
+import math
+
 import pygame, sys
 from debug import debug
 from map import *
@@ -11,6 +13,8 @@ import random_map
 class Level:
     def __init__(self):
         self.rotated_angle = 0
+        self.rotation_animation = 0
+        self.rotation_direction = 0
         self.displaySurface = pygame.display.get_surface()
 
         self.visibleSprites = pygame.sprite.Group()
@@ -86,7 +90,8 @@ class Level:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_q] and not self.rotated:
-            self.rotated_angle += 90
+            self.rotation_animation = -90
+            self.rotation_direction = -1
             self.player.rotate(90)
 
             for entity in self.entitySprites:
@@ -102,7 +107,8 @@ class Level:
             self.rotated = 1
 
         elif keys[pygame.K_e] and not self.rotated:
-            self.rotated_angle -= 90
+            self.rotation_animation = 90
+            self.rotation_direction = 1
             self.player.rotate(-90)
 
             for entity in self.entitySprites:
@@ -116,12 +122,6 @@ class Level:
                 finish.image = pygame.transform.rotate(finish.image, 90)
 
             self.rotated = 1
-
-
-    def rotationDelay(self):
-        if self.rotated == 1:
-            sleep(0.2)
-            self.rotated = 0
 
     def getNewLevel(self):
         if self.player.finished == 1:
@@ -143,6 +143,8 @@ class Level:
 
             self.player.finished = 0
             self.rotated_angle = 0
+            self.rotation_animation = 0
+            self.rotation_direction = 0
 
     def run(self):
         #debug(self.player.direction)
@@ -165,7 +167,16 @@ class Level:
         self.removeBerry()
 
         self.rotateMap()
-        self.rotationDelay()
+        self.rotationAnimate()
 
         self.getNewLevel()
+
+    def rotationAnimate(self):
+        if self.rotated == 1:
+            if self.rotation_animation != 0:
+                self.rotated_angle -= self.rotation_direction * 2
+                self.rotation_animation -= self.rotation_direction * 2
+            else:
+                self.rotated = 0
+                self.rotation_direction = 0
 

@@ -1,6 +1,15 @@
 import sys, pygame
 from world import Level,debug
 
+def rot_center(image, angle):
+    """rotate an image while keeping its center and size"""
+    orig_rect = image.get_rect()
+    rot_image = pygame.transform.rotate(image, angle)
+    rot_rect = orig_rect.copy()
+    rot_rect.center = rot_image.get_rect().center
+    rot_image = rot_image.subsurface(rot_rect).copy()
+    return rot_image
+
 
 class Game:
     def __init__(self):
@@ -14,7 +23,6 @@ class Game:
 
         pygame.mixer.music.load("sounds/music.mp3")
         pygame.mixer.music.play(-1)
-
 
     def run(self):
         while True:
@@ -30,7 +38,7 @@ class Game:
 
             self.screen.blit(self.world.background_image, (0, 0))
             self.world.run()
-            self.screen.blit(pygame.transform.rotate(self.screen, self.world.rotated_angle), (0, 0))
+            self.screen.blit(rot_center(self.screen, self.world.rotated_angle), (0, 0))
 
             debug("Score is: " + str(self.world.score))
 
